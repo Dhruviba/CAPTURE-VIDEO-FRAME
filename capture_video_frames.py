@@ -1,5 +1,4 @@
 import os
-import shutil
 import sys
 import cv2
 
@@ -12,10 +11,16 @@ class FrameCapture:
             initializing directory where the captured frames will be stored.
             Also truncating the directory where captured frames are stored, if exists.
         '''
-        self.directory = "captured_frames"
+        # asking user to make your output folder 
+        while True:
+            user = input("Give a name to your output folder: ")
+            self.directory = f"{user}"
+            if os.path.exists(self.directory):
+                print(f"The directory '{self.directory}' already exists. Please provide a unique name.")
+            else:
+                break
+
         self.file_path = file_path
-        if os.path.exists(self.directory):
-            shutil.rmtree(self.directory)
         os.mkdir(self.directory)
 
     def capture_frames(self):
